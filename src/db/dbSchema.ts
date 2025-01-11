@@ -14,15 +14,15 @@ const coinSchema = new mongoose.Schema({
         default : "usd"
     },
     currentPrice : {
-        type : String,
+        type : Number,
         required : true
     },
     marketCap : {
-        type : String,
+        type : Number,
         required : true
     },
     TwentyFourHourChange : {
-        type : String,
+        type : Number,
         required : true
     }
 },{
