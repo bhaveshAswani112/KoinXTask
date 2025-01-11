@@ -1,0 +1,122 @@
+openapi: 3.0.0
+info:
+  title: Coin Statistics API
+  version: 1.0.0
+  description: API for retrieving cryptocurrency statistics and deviation
+
+servers:
+  - url: http://localhost:3000
+    description: Development server
+
+paths:
+  /api/v1/stats:
+    get:
+      summary: Get coin statistics
+      tags:
+        - Coins
+      parameters:
+        - in: query
+          name: coin
+          required: true
+          schema:
+            type: string
+            enum: [bitcoin, matic-network, ethereum]
+          description: Cryptocurrency to fetch statistics for
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  price:
+                    type: number
+                  marketCap:
+                    type: number
+                  24hChange:
+                    type: number
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /api/v1/deviation:
+    get:
+      summary: Get price deviation for last 100 records
+      tags:
+        - Coins
+      parameters:
+        - in: query
+          name: coin
+          required: true
+          schema:
+            type: string
+            enum: [bitcoin, matic-network, ethereum]
+          description: Cryptocurrency to calculate deviation for
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deviation:
+                    type: number
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    Coin:
+      type: object
+      properties:
+        coin:
+          type: string
+          enum: [bitcoin, matic-network, ethereum]
+        currentPrice:
+          type: number
+        marketCap:
+          type: number
+        TwentyFourHourChange:
+          type: number
+        timestamp:
+          type: string
+          format: date-time
+      required:
+        - coin
+        - currentPrice
+        - marketCap
+        - TwentyFourHourChange
+        - timestamp

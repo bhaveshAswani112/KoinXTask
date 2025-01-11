@@ -10,7 +10,8 @@ const coinData = z.object({
 
 export const getStats = async (req : Request, res : Response) : Promise<any> => {
         try {
-            const body = req.body
+            const body = req.query
+            // console.log(body)
             const data = coinData.safeParse(body)
             if(!data.success) {
                 return res.status(400).json({
@@ -39,7 +40,7 @@ export const getStats = async (req : Request, res : Response) : Promise<any> => 
 }
 export const getDeviation = async (req : Request, res : Response) : Promise<any> => {
         try {
-            const body = req.body
+            const body = req.query
             const data = coinData.safeParse(body)
             if(!data.success) {
                 return res.status(400).json({
