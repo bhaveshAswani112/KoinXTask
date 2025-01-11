@@ -29,9 +29,7 @@ npm install
 ```
 
 3. Rename  `.env.example` to `.env` file in the root directory and fill the env variables:
-```env
 
-```
 
 ## Project Structure
 
